@@ -1,6 +1,6 @@
 # WorkTest
 1. Переходим по ссылке и скачиваем файлы: 
-https://github.com/FallRoyMkI/WorkTest/tree/master/WorkTest/Build
+https://github.com/FallRoyMkI/WorkTest/tree/master/WorkTest.Api/Build
 
 2. В файле appsettings.json можно поменять connectionString в разделе ConnectionStrings, в строке DataBase
 
