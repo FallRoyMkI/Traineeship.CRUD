@@ -19,8 +19,4 @@
     <ProjectReference Include="..\WorkTest.Constants\WorkTest.Constants.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>
