@@ -1,4 +1,4 @@
-﻿namespace WorkTest.Constants.Exceptions;
+﻿namespace WorkTest.Bll.Exceptions;
 
 public class NotAllowedToDeleteOrderException : Exception
 {

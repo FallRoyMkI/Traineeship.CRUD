@@ -18,8 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WorkTest.Bll\WorkTest.Bll.csproj" />
-    <ProjectReference Include="..\WorkTest.Constants\WorkTest.Constants.csproj" />
     <ProjectReference Include="..\WorkTest.Models\WorkTest.Models.csproj" />
+    <ProjectReference Include="..\WorkTest.Validator\WorkTest.Validator.csproj" />
   </ItemGroup>
 
 </Project>

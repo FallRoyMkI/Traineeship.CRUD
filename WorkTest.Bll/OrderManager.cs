@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using WorkTest.Constants.Exceptions;
+using WorkTest.Bll.Exceptions;
 using WorkTest.Contracts;
 using WorkTest.Models.Entity;
 using WorkTest.Models.Enum;

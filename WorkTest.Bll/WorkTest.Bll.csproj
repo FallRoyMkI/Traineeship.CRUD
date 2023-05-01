@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Work.Test.Dal\WorkTest.Dal.csproj" />
-    <ProjectReference Include="..\WorkTest.Constants\WorkTest.Constants.csproj" />
   </ItemGroup>
 
 </Project>

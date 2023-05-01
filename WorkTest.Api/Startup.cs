@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using WorkTest.Api.Controllers.Extension;
 using WorkTest.Api.MapperProfiles;
 using WorkTest.Api.Middleware;
 using WorkTest.Dal;

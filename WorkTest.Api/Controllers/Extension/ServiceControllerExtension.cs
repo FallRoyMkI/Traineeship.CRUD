@@ -2,8 +2,9 @@
 using WorkTest.Bll;
 using WorkTest.Contracts;
 using WorkTest.Dal;
+using WorkTest.Validator;
 
-namespace WorkTest.Api;
+namespace WorkTest.Api.Controllers.Extension;
 
 public static class ServiceControllerExtension
 {
@@ -28,9 +29,6 @@ public static class ServiceControllerExtension
 
         using Context? context = serviceScope.ServiceProvider.GetService<Context>();
 
-        if (context is not null)
-        {
-            context.Database.Migrate();
-        }
+        context?.Database.Migrate();
     }
 }

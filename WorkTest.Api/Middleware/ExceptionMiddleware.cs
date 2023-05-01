@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System.Text.Json;
-using WorkTest.Constants.Exceptions;
+using WorkTest.Bll.Exceptions;
 using WorkTest.Models.Dto;
+using WorkTest.Validator.Exceptions;
 
 namespace WorkTest.Api.Middleware;
 

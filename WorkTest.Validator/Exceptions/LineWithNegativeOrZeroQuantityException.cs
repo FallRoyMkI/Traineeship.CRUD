@@ -1,4 +1,4 @@
-﻿namespace WorkTest.Constants.Exceptions;
+﻿namespace WorkTest.Validator.Exceptions;
 
 public class LineWithNegativeOrZeroQuantityException : Exception
 {
