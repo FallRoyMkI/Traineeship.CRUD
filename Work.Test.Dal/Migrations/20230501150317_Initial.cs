@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace WorkTest.Dal.Migrations
 {
-
+    /// <inheritdoc />
     public partial class Initial : Migration
     {
-
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -26,20 +27,20 @@ namespace WorkTest.Dal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductDto",
+                name: "OrderLine",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OrderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProdId = table.Column<Guid>(type: "uuid", nullable: false),
+                    OrderLineId = table.Column<Guid>(type: "uuid", nullable: false),
                     Qty = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductDto", x => x.Id);
+                    table.PrimaryKey("PK_OrderLine", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductDto_Orders_OrderId",
+                        name: "FK_OrderLine_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id",
@@ -47,15 +48,16 @@ namespace WorkTest.Dal.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductDto_OrderId",
-                table: "ProductDto",
+                name: "IX_OrderLine_OrderId",
+                table: "OrderLine",
                 column: "OrderId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductDto");
+                name: "OrderLine");
 
             migrationBuilder.DropTable(
                 name: "Orders");

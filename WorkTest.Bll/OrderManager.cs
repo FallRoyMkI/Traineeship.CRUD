@@ -18,8 +18,6 @@ public sealed class OrderManager : IOrderManager
         _mapper = mapper;
     }
 
-    // public orderDTO ** (orderDTO)
-
     public OrderModel CreateOrder(OrderModel order)
     {
         IsGuidExist(order.Id);
@@ -27,8 +25,8 @@ public sealed class OrderManager : IOrderManager
         order.Status = OrderStatus.New;
         order.Created = DateTime.Now.ToUniversalTime();
 
-        OrderEntity dto = _mapper.Map<OrderEntity>(order);
-        OrderEntity callback = _orderRepository.CreateNewOrder(dto);
+        OrderEntity entity = _mapper.Map<OrderEntity>(order);
+        OrderEntity callback = _orderRepository.CreateNewOrder(entity);
 
         return _mapper.Map<OrderModel>(callback);
     }
@@ -37,14 +35,14 @@ public sealed class OrderManager : IOrderManager
     {
         IsOrderExist(guid);
 
-        OrderEntity dto = _orderRepository.GetOrderById(guid);
-        IsOrderDeleted(ref dto);
-        IsAllowedToUpdate(ref dto);
+        OrderEntity entity = _orderRepository.GetOrderById(guid);
+        IsOrderDeleted(ref entity);
+        IsAllowedToUpdate(ref entity);
 
-        dto.Status = order.Status;
-        dto.Lines = _mapper.Map<OrderEntity>(order).Lines;
+        entity.Status = order.Status;
+        entity.Lines = _mapper.Map<OrderEntity>(order).Lines;
 
-        OrderEntity callback = _orderRepository.UpdateOrder(dto);
+        OrderEntity callback = _orderRepository.UpdateOrder(entity);
 
         return _mapper.Map<OrderModel>(callback);
     }
@@ -53,21 +51,21 @@ public sealed class OrderManager : IOrderManager
     {
         IsOrderExist(guid);
 
-        OrderEntity dto = _orderRepository.GetOrderById(guid);
-        IsOrderDeleted(ref dto);
-        IsAllowedToDelete(ref dto);
+        OrderEntity entity = _orderRepository.GetOrderById(guid);
+        IsOrderDeleted(ref entity);
+        IsAllowedToDelete(ref entity);
 
-        _orderRepository.DeleteOrder(dto);
+        _orderRepository.DeleteOrder(entity);
     }
 
     public OrderModel GetOrderById(Guid guid)
     {
         IsOrderExist(guid);
 
-        OrderEntity dto = _orderRepository.GetOrderById(guid);
-        IsOrderDeleted(ref dto);
+        OrderEntity entity = _orderRepository.GetOrderById(guid);
+        IsOrderDeleted(ref entity);
 
-        return _mapper.Map<OrderModel>(dto);
+        return _mapper.Map<OrderModel>(entity);
     }
 
     private void IsOrderExist(Guid guid)
@@ -78,26 +76,26 @@ public sealed class OrderManager : IOrderManager
         }
     }
 
-    private void IsOrderDeleted(ref OrderEntity dto)
+    private void IsOrderDeleted(ref OrderEntity entity)
     {
-        if (dto.IsDeleted)
+        if (entity.IsDeleted)
         {
             throw new AttemptToGetDeletedOrderException("Заказ удален");
         }
     }
 
-    private void IsAllowedToDelete(ref OrderEntity dto)
+    private void IsAllowedToDelete(ref OrderEntity entity)
     {
-        if (dto.Status >= (OrderStatus)3)
+        if (entity.Status >= (OrderStatus)3)
         {
             throw new NotAllowedToDeleteOrderException
                 ("Заказы в статусах “передан в доставку”, “доставлен”, “завершен” нельзя удалить");
         }
     }
 
-    private void IsAllowedToUpdate(ref OrderEntity dto)
+    private void IsAllowedToUpdate(ref OrderEntity entity)
     {
-        if (dto.Status >= (OrderStatus)2)
+        if (entity.Status >= (OrderStatus)2)
         {
             throw new NotAllowToEditEntityException
                 ("Заказы в статусах “оплачен”, “передан в доставку”, “доставлен”, “завершен” нельзя редактировать");

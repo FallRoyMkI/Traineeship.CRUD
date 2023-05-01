@@ -10,12 +10,14 @@ public class OrderValidator : IOrderValidator
     {
         IsWithoutLinesValidation(ref order);
         QuantityValidation(ref order);
+        UniqueOrderLineIdValidation(ref order);
     }
     public void OrderUpdateModelValidator(OrderModel order)
     {
         UnprocessableStatusValidation(ref order);
         IsWithoutLinesValidation(ref order);
         QuantityValidation(ref order);
+        UniqueOrderLineIdValidation(ref order);
     }
 
     private void IsWithoutLinesValidation(ref OrderModel order)
@@ -27,7 +29,7 @@ public class OrderValidator : IOrderValidator
     }
     private void QuantityValidation(ref OrderModel order)
     {
-        if (order.Lines.Any(product => product.Qty < 1))
+        if (order.Lines.Any(x => x.Qty < 1))
         {
             throw new LineWithNegativeOrZeroQuantityException
                 ("Количество по строке заказа должно быть положительным");
@@ -39,6 +41,20 @@ public class OrderValidator : IOrderValidator
         if ((int)order.Status is > 5 or < 0)
         {
             throw new StatusNotExistException("Попытка добавить не существующий статус");
+        }
+    }
+
+    private void UniqueOrderLineIdValidation(ref OrderModel order)
+    {
+        List<Guid> unique = new();
+        foreach (var line in order.Lines.Where(line => !unique.Contains(line.OrderLineId)))
+        {
+            unique.Add(line.OrderLineId);
+        }
+
+        if (order.Lines.Count != unique.Count)
+        {
+            throw new DifferentLinesWithSameProductException("Попытка добавить одинаковый товар разными строками");
         }
     }
 }

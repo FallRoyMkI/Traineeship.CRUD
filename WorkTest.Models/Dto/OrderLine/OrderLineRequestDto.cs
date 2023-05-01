@@ -5,7 +5,7 @@ namespace WorkTest.Models.Dto.OrderLine;
 public class OrderLineRequestDto
 {
     [JsonPropertyName("id")]
-    public Guid ProdId { get; set; }
+    public Guid OrderLineId { get; set; }
 
     [JsonPropertyName("qty")]
     public int Qty { get; set; }

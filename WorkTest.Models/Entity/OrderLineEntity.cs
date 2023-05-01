@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkTest.Models.Entity;
 
+[Table("OrderLine")]
 public class OrderLineEntity
 {
     [Key]
@@ -15,7 +16,7 @@ public class OrderLineEntity
     public OrderEntity Order { get; set; }
 
     [Required]
-    public Guid ProdId { get; set; }
+    public Guid OrderLineId { get; set; }
 
     [Required]
     public int Qty { get; set; }

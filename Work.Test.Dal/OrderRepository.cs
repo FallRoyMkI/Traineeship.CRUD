@@ -39,7 +39,8 @@ public class OrderRepository : IOrderRepository
 
     public OrderEntity GetOrderById(Guid guid)
     {
-        return _context.Set<OrderEntity>().Include(order => order.Lines).First(x => x.Id == guid);
+        return _context.Set<OrderEntity>()
+            .Include(order => order.Lines).First(x => x.Id == guid);
     }
 
     public bool IsOrderExist(Guid guid) => _context.Orders.ToList().Exists(x => x.Id == guid);

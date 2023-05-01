@@ -22,7 +22,7 @@ namespace WorkTest.Dal.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WorkTest.Dal.Models.OrderDto", b =>
+            modelBuilder.Entity("WorkTest.Models.Entity.OrderEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace WorkTest.Dal.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("WorkTest.Dal.Models.ProductDto", b =>
+            modelBuilder.Entity("WorkTest.Models.Entity.OrderLineEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace WorkTest.Dal.Migrations
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ProdId")
+                    b.Property<Guid>("OrderLineId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Qty")
@@ -63,12 +63,12 @@ namespace WorkTest.Dal.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("ProductDto");
+                    b.ToTable("OrderLine");
                 });
 
-            modelBuilder.Entity("WorkTest.Dal.Models.ProductDto", b =>
+            modelBuilder.Entity("WorkTest.Models.Entity.OrderLineEntity", b =>
                 {
-                    b.HasOne("WorkTest.Dal.Models.OrderDto", "Order")
+                    b.HasOne("WorkTest.Models.Entity.OrderEntity", "Order")
                         .WithMany("Lines")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -77,7 +77,7 @@ namespace WorkTest.Dal.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("WorkTest.Dal.Models.OrderDto", b =>
+            modelBuilder.Entity("WorkTest.Models.Entity.OrderEntity", b =>
                 {
                     b.Navigation("Lines");
                 });

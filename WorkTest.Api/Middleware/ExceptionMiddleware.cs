@@ -38,7 +38,8 @@ public class ExceptionMiddleware
             AttemptToGetDeletedOrderException
                 or OrderWithoutLinesException
                 or LineWithNegativeOrZeroQuantityException
-                or OrderGuidAlreadyExistException => 422,
+                or OrderGuidAlreadyExistException 
+                or DifferentLinesWithSameProductException => 422,
             NpgsqlException
                 or DbUpdateException => 500,
             _ => 400
