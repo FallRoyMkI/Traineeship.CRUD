@@ -1,7 +1,6 @@
-﻿using System.Text.Json;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using WorkTest.Constants;
+using System.Text.Json;
 using WorkTest.Constants.Exceptions;
 using WorkTest.Models.Dto;
 
@@ -43,7 +42,7 @@ public class ExceptionMiddleware
                 or DbUpdateException => 500,
             _ => 400
         };
-        ExceptionResponseDto exR = new(message,code);
+        ExceptionResponseDto exR = new(message, code);
         string result = JsonSerializer.Serialize(exR);
         context.Response.StatusCode = exR.Code;
         return context.Response.WriteAsync(result);

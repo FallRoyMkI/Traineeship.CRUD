@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WorkTest.Bll;
-using WorkTest.Bll.Interfaces;
+using WorkTest.Contracts;
 using WorkTest.Dal;
-using WorkTest.Dal.Interfaces;
-using WorkTest.Validator;
 
 namespace WorkTest.Api;
 

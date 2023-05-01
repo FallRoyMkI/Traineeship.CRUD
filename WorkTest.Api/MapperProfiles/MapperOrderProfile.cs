@@ -1,8 +1,9 @@
-﻿using WorkTest.Api.Models.Order.Response;
-using WorkTest.Api.Models.Order.Request;
+﻿using AutoMapper;
 using WorkTest.Bll.Models;
-using WorkTest.Dal.Models;
-using AutoMapper;
+using WorkTest.Models.Dto.Order;
+using WorkTest.Models.Dto.OrderLine;
+using WorkTest.Models.Entity;
+using WorkTest.Models.Model;
 
 namespace WorkTest.Api.MapperProfiles;
 
@@ -10,9 +11,10 @@ public class MapperOrderProfile : Profile
 {
     public MapperOrderProfile()
     {
-        CreateMap<OrderAddRequest, Order>();
-        CreateMap<OrderUpdateRequest, Order>();
-        CreateMap<Order, OrderDto>().ReverseMap();
-        CreateMap<Order, OrderResponse>();
+        CreateMap<OrderAddRequestDto, OrderModel>();
+        CreateMap<OrderUpdateRequestDto, OrderModel>();
+        CreateMap<OrderModel, OrderEntity>().ReverseMap();
+        CreateMap<OrderModel, OrderResponseDto>();
+        
     }
 }

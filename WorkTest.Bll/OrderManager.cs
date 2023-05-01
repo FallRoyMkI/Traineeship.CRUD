@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using WorkTest.Bll.Interfaces;
-using WorkTest.Bll.Models;
-using WorkTest.Constants;
 using WorkTest.Constants.Exceptions;
-using WorkTest.Dal.Interfaces;
-using WorkTest.Dal.Models;
+using WorkTest.Contracts;
+using WorkTest.Models.Entity;
+using WorkTest.Models.Enum;
+using WorkTest.Models.Model;
 
 namespace WorkTest.Bll;
 
@@ -19,54 +18,56 @@ public sealed class OrderManager : IOrderManager
         _mapper = mapper;
     }
 
-    public Order CreateOrder(Order order)
+    // public orderDTO ** (orderDTO)
+
+    public OrderModel CreateOrder(OrderModel order)
     {
         IsGuidExist(order.Id);
 
         order.Status = OrderStatus.New;
         order.Created = DateTime.Now.ToUniversalTime();
 
-        OrderDto dto = _mapper.Map<OrderDto>(order);
-        OrderDto callback = _orderRepository.CreateNewOrder(dto);
+        OrderEntity dto = _mapper.Map<OrderEntity>(order);
+        OrderEntity callback = _orderRepository.CreateNewOrder(dto);
 
-        return _mapper.Map<Order>(callback);
+        return _mapper.Map<OrderModel>(callback);
     }
 
-    public Order UpdateOrder(Guid guid, Order order)
+    public OrderModel UpdateOrder(Guid guid, OrderModel order)
     {
         IsOrderExist(guid);
 
-        OrderDto dto = _orderRepository.GetOrderById(guid);
+        OrderEntity dto = _orderRepository.GetOrderById(guid);
         IsOrderDeleted(ref dto);
         IsAllowedToUpdate(ref dto);
 
         dto.Status = order.Status;
-        dto.Lines = _mapper.Map<OrderDto>(order).Lines;
+        dto.Lines = _mapper.Map<OrderEntity>(order).Lines;
 
-        OrderDto callback = _orderRepository.UpdateOrder(dto);
+        OrderEntity callback = _orderRepository.UpdateOrder(dto);
 
-        return _mapper.Map<Order>(callback);
+        return _mapper.Map<OrderModel>(callback);
     }
 
     public void DeleteOrder(Guid guid)
     {
         IsOrderExist(guid);
 
-        OrderDto dto = _orderRepository.GetOrderById(guid);
+        OrderEntity dto = _orderRepository.GetOrderById(guid);
         IsOrderDeleted(ref dto);
         IsAllowedToDelete(ref dto);
 
         _orderRepository.DeleteOrder(dto);
     }
 
-    public Order GetOrderById(Guid guid)
+    public OrderModel GetOrderById(Guid guid)
     {
         IsOrderExist(guid);
 
-        OrderDto dto = _orderRepository.GetOrderById(guid);
+        OrderEntity dto = _orderRepository.GetOrderById(guid);
         IsOrderDeleted(ref dto);
 
-        return _mapper.Map<Order>(dto);
+        return _mapper.Map<OrderModel>(dto);
     }
 
     private void IsOrderExist(Guid guid)
@@ -77,7 +78,7 @@ public sealed class OrderManager : IOrderManager
         }
     }
 
-    private void IsOrderDeleted(ref OrderDto dto)
+    private void IsOrderDeleted(ref OrderEntity dto)
     {
         if (dto.IsDeleted)
         {
@@ -85,7 +86,7 @@ public sealed class OrderManager : IOrderManager
         }
     }
 
-    private void IsAllowedToDelete(ref OrderDto dto)
+    private void IsAllowedToDelete(ref OrderEntity dto)
     {
         if (dto.Status >= (OrderStatus)3)
         {
@@ -94,7 +95,7 @@ public sealed class OrderManager : IOrderManager
         }
     }
 
-    private void IsAllowedToUpdate(ref OrderDto dto)
+    private void IsAllowedToUpdate(ref OrderEntity dto)
     {
         if (dto.Status >= (OrderStatus)2)
         {
