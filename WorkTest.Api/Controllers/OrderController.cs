@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using WorkTest.Api.Models.Order.Request;
-using WorkTest.Api.Models.Order.Response;
-using WorkTest.Bll.Interfaces;
-using WorkTest.Bll.Models;
-using WorkTest.Constants;
-using WorkTest.Validator;
+using WorkTest.Contracts;
+using WorkTest.Models.Dto;
+using WorkTest.Models.Dto.Order;
+using WorkTest.Models.Model;
 
 namespace WorkTest.Api.Controllers;
 
@@ -23,46 +21,46 @@ public class OrderController : Controller
     }
 
     [HttpPost("/orders")]
-    [ProducesResponseType(typeof(OrderResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status500InternalServerError)]
-    public IActionResult CreateOrder([FromBody] OrderAddRequest order)
+    [ProducesResponseType(typeof(OrderResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status422UnprocessableEntity)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status500InternalServerError)]
+    public IActionResult CreateOrder([FromBody] OrderAddRequestDto order)
     {
-        Order model = _mapper.Map<Order>(order);
+        OrderModel model = _mapper.Map<OrderModel>(order);
         _orderValidator.OrderCreateModelValidator(model);
 
-        Order callback = _orderManager.CreateOrder(model);
-        OrderResponse result = _mapper.Map<OrderResponse>(callback);
+        OrderModel callback = _orderManager.CreateOrder(model);
+        OrderResponseDto result = _mapper.Map<OrderResponseDto>(callback);
 
         return Ok(result);
     }
 
     [HttpPut("/orders/{guid:guid}")]
-    [ProducesResponseType(typeof(OrderResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status406NotAcceptable)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status500InternalServerError)]
-    public IActionResult UpdateOrder([FromRoute] Guid guid, [FromBody] OrderUpdateRequest order)
+    [ProducesResponseType(typeof(OrderResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status406NotAcceptable)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status422UnprocessableEntity)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status500InternalServerError)]
+    public IActionResult UpdateOrder([FromRoute] Guid guid, [FromBody] OrderUpdateRequestDto order)
     {
-        Order model = _mapper.Map<Order>(order);
+        OrderModel model = _mapper.Map<OrderModel>(order);
         _orderValidator.OrderUpdateModelValidator(model);
 
-        Order callback = _orderManager.UpdateOrder(guid, model);
-        OrderResponse result = _mapper.Map<OrderResponse>(callback);
+        OrderModel callback = _orderManager.UpdateOrder(guid, model);
+        OrderResponseDto result = _mapper.Map<OrderResponseDto>(callback);
 
         return Ok(result);
     }
 
     [HttpDelete("/orders/{guid:guid}")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status422UnprocessableEntity)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status500InternalServerError)]
     public IActionResult DeleteOrder([FromRoute] Guid guid)
     {
         _orderManager.DeleteOrder(guid);
@@ -70,15 +68,15 @@ public class OrderController : Controller
     }
 
     [HttpGet("/orders/{guid:guid}")]
-    [ProducesResponseType(typeof(OrderResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
-    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(OrderResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status422UnprocessableEntity)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status500InternalServerError)]
     public IActionResult GetOrderById([FromRoute] Guid guid)
     {
-        Order callback = _orderManager.GetOrderById(guid);
-        OrderResponse result = _mapper.Map<OrderResponse>(callback);
+        OrderModel callback = _orderManager.GetOrderById(guid);
+        OrderResponseDto result = _mapper.Map<OrderResponseDto>(callback);
 
         return Ok(result);
     }

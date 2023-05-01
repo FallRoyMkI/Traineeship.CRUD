@@ -13,16 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Order\Request\" />
-    <Folder Include="Models\Order\Response\" />
-    <Folder Include="Models\Product\Response\" />
     <Folder Include="Build\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WorkTest.Bll\WorkTest.Bll.csproj" />
     <ProjectReference Include="..\WorkTest.Constants\WorkTest.Constants.csproj" />
-    <ProjectReference Include="..\WorkTest.Validator\WorkTest.Validator.csproj" />
+    <ProjectReference Include="..\WorkTest.Models\WorkTest.Models.csproj" />
   </ItemGroup>
 
 </Project>

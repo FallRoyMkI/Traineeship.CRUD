@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-using WorkTest.Constants;
+using WorkTest.Models.Enum;
 
-namespace WorkTest.Dal.Models;
+namespace WorkTest.Models.Entity;
 
 [PrimaryKey("Id")]
-public class OrderDto
+public class OrderEntity
 {
     [Key]
     public Guid Id { get; set; }
@@ -17,7 +17,7 @@ public class OrderDto
     [Required]
     public DateTime Created { get; set; }
 
-    public List<ProductDto> Lines { get; set; }
+    public List<OrderLineEntity> Lines { get; set; }
 
     public bool IsDeleted { get; set; }
 }

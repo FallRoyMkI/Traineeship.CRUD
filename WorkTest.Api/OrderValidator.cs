@@ -1,9 +1,8 @@
-﻿using WorkTest.Bll.Models;
-using WorkTest.Constants.Exceptions;
+﻿using WorkTest.Constants.Exceptions;
 using WorkTest.Contracts;
 using WorkTest.Models.Model;
 
-namespace WorkTest.Validator;
+namespace WorkTest.Api;
 
 public class OrderValidator : IOrderValidator
 {
