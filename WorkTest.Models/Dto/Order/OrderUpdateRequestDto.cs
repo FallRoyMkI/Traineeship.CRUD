@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using WorkTest.Models.Dto.Product;
+using WorkTest.Models.Dto.OrderLine;
 using WorkTest.Models.Enum;
 
 namespace WorkTest.Models.Dto.Order;
@@ -10,5 +10,5 @@ public class OrderUpdateRequestDto
     public OrderStatus Status { get; set; }
 
     [JsonPropertyName("lines")]
-    public List<ProductResponseDto> Lines { get; set; }
+    public List<OrderLineResponseDto> Lines { get; set; }
 }

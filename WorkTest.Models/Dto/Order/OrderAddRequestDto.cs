@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using WorkTest.Models.Dto.Product;
+using WorkTest.Models.Dto.OrderLine;
 
 namespace WorkTest.Models.Dto.Order;
 
@@ -9,5 +9,5 @@ public class OrderAddRequestDto
     public Guid Id { get; set; }
 
     [JsonPropertyName("lines")]
-    public List<ProductResponseDto> Lines { get; set; }
+    public List<OrderLineRequestDto> Lines { get; set; }
 }

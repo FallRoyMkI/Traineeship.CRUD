@@ -43,7 +43,7 @@ public class ExceptionMiddleware
                 or DbUpdateException => 500,
             _ => 400
         };
-        ExceptionResponseDto exR = new(ex);
+        ExceptionResponseDto exR = new(message,code);
         string result = JsonSerializer.Serialize(exR);
         context.Response.StatusCode = exR.Code;
         return context.Response.WriteAsync(result);

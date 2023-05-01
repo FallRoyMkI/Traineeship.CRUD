@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
-using WorkTest.Api.Models.Product.Response;
-using WorkTest.Constants;
+using WorkTest.Models.Dto.OrderLine;
+using WorkTest.Models.Enum;
 
 namespace WorkTest.Models.Dto.Order;
 
-public class OrderResponse
+public class OrderResponseDto
 {
     [JsonPropertyName("id")]
     public Guid Id { get; set; }
@@ -16,5 +16,5 @@ public class OrderResponse
     public DateTime Created { get; set; }
 
     [JsonPropertyName("lines")]
-    public List<ProductResponse> Lines { get; set; }
+    public List<OrderLineResponseDto> Lines { get; set; }
 }

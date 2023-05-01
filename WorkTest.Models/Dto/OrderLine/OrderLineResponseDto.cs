@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WorkTest.Models.Dto.Product;
+namespace WorkTest.Models.Dto.OrderLine;
 
-public class ProductResponseDto
+public class OrderLineResponseDto
 {
     [JsonPropertyName("id")]
     public Guid ProdId { get; set; }
