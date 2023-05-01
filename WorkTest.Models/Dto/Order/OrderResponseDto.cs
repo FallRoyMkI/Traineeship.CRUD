@@ -2,7 +2,7 @@
 using WorkTest.Api.Models.Product.Response;
 using WorkTest.Constants;
 
-namespace WorkTest.Api.Models.Order.Response;
+namespace WorkTest.Models.Dto.Order;
 
 public class OrderResponse
 {

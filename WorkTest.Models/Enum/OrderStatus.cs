@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WorkTest.Constants;
+namespace WorkTest.Models.Enum;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum OrderStatus
