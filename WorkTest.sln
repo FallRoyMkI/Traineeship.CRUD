@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkTest.Dal", "Work.Test.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkTest.Constants", "WorkTest.Constants\WorkTest.Constants.csproj", "{508A7814-0E16-4CEB-AEA1-641DD9B5C80F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTest.Validator", "WorkTest.Validator\WorkTest.Validator.csproj", "{41F185CC-4E03-44D6-8EB4-1A01E4B35C4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkTest.Validator", "WorkTest.Validator\WorkTest.Validator.csproj", "{41F185CC-4E03-44D6-8EB4-1A01E4B35C4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTest.Contracts", "WorkTest.Contracts\WorkTest.Contracts.csproj", "{52846002-E3BA-4921-AF38-0A81B1B918B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{41F185CC-4E03-44D6-8EB4-1A01E4B35C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41F185CC-4E03-44D6-8EB4-1A01E4B35C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41F185CC-4E03-44D6-8EB4-1A01E4B35C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52846002-E3BA-4921-AF38-0A81B1B918B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52846002-E3BA-4921-AF38-0A81B1B918B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52846002-E3BA-4921-AF38-0A81B1B918B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52846002-E3BA-4921-AF38-0A81B1B918B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
