@@ -42,7 +42,7 @@ public class ExceptionMiddleware
                 or DifferentLinesWithSameProductException => 422,
             NpgsqlException
                 or DbUpdateException => 500,
-            _ => 400
+            _ => 1000
         };
         ExceptionResponseDto exR = new(message, code);
         string result = JsonSerializer.Serialize(exR);

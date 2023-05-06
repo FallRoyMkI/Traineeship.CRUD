@@ -14,7 +14,8 @@ public class MapperOrderProfile : Profile
         CreateMap<OrderAddRequestDto, OrderModel>();
         CreateMap<OrderUpdateRequestDto, OrderModel>();
         CreateMap<OrderModel, OrderEntity>().ReverseMap();
-        CreateMap<OrderModel, OrderResponseDto>();
+        CreateMap<OrderModel, OrderResponseDto>().ForMember(x => x.Created,
+            p => p.MapFrom(y => y.Created.ToString("G")));
         
     }
 }

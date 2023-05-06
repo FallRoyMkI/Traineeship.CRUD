@@ -25,6 +25,7 @@ public class OrderController : Controller
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), 1000)]
     public IActionResult CreateOrder([FromBody] OrderAddRequestDto order)
     {
         OrderModel model = _mapper.Map<OrderModel>(order);
@@ -43,12 +44,15 @@ public class OrderController : Controller
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status406NotAcceptable)]
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), 1000)]
+    
     public IActionResult UpdateOrder([FromRoute] Guid guid, [FromBody] OrderUpdateRequestDto order)
     {
         OrderModel model = _mapper.Map<OrderModel>(order);
         _orderValidator.OrderUpdateModelValidator(model);
+        model.Id = guid;
 
-        OrderModel callback = _orderManager.UpdateOrder(guid, model);
+        OrderModel callback = _orderManager.UpdateOrder(model);
         OrderResponseDto result = _mapper.Map<OrderResponseDto>(callback);
 
         return Ok(result);
@@ -61,6 +65,7 @@ public class OrderController : Controller
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), 1000)]
     public IActionResult DeleteOrder([FromRoute] Guid guid)
     {
         _orderManager.DeleteOrder(guid);
@@ -73,6 +78,7 @@ public class OrderController : Controller
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(typeof(ExceptionResponseDto), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ExceptionResponseDto), 1000)]
     public IActionResult GetOrderById([FromRoute] Guid guid)
     {
         OrderModel callback = _orderManager.GetOrderById(guid);

@@ -31,11 +31,11 @@ public sealed class OrderManager : IOrderManager
         return _mapper.Map<OrderModel>(callback);
     }
 
-    public OrderModel UpdateOrder(Guid guid, OrderModel order)
+    public OrderModel UpdateOrder(OrderModel order)
     {
-        IsOrderExist(guid);
+        IsOrderExist(order.Id);
 
-        OrderEntity entity = _orderRepository.GetOrderById(guid);
+        OrderEntity entity = _orderRepository.GetOrderById(order.Id);
         IsOrderDeleted(ref entity);
         IsAllowedToUpdate(ref entity);
 
@@ -86,7 +86,7 @@ public sealed class OrderManager : IOrderManager
 
     private void IsAllowedToDelete(ref OrderEntity entity)
     {
-        if (entity.Status >= (OrderStatus)3)
+        if (entity.Status is OrderStatus.TransferredForDelivery or OrderStatus.Delivered or OrderStatus.Completed)
         {
             throw new NotAllowedToDeleteOrderException
                 ("Заказы в статусах “передан в доставку”, “доставлен”, “завершен” нельзя удалить");
@@ -95,7 +95,7 @@ public sealed class OrderManager : IOrderManager
 
     private void IsAllowedToUpdate(ref OrderEntity entity)
     {
-        if (entity.Status >= (OrderStatus)2)
+        if (entity.Status is OrderStatus.Paid or OrderStatus.TransferredForDelivery or OrderStatus.Delivered or OrderStatus.Completed)
         {
             throw new NotAllowToEditEntityException
                 ("Заказы в статусах “оплачен”, “передан в доставку”, “доставлен”, “завершен” нельзя редактировать");

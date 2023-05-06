@@ -1,6 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using WorkTest.Models.Dto.OrderLine;
 using WorkTest.Models.Enum;
+
 
 namespace WorkTest.Models.Dto.Order;
 
@@ -13,7 +15,8 @@ public class OrderResponseDto
     public OrderStatus Status { get; set; }
 
     [JsonPropertyName("created")]
-    public DateTime Created { get; set; }
+    [DataType(DataType.DateTime)]
+    public string Created { get; set; }
 
     [JsonPropertyName("lines")]
     public List<OrderLineResponseDto> Lines { get; set; }

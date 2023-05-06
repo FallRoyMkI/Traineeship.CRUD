@@ -1,4 +1,5 @@
 ﻿using WorkTest.Contracts;
+using WorkTest.Models.Enum;
 using WorkTest.Models.Model;
 using WorkTest.Validator.Exceptions;
 
@@ -38,7 +39,8 @@ public class OrderValidator : IOrderValidator
 
     private void UnprocessableStatusValidation(ref OrderModel order)
     {
-        if ((int)order.Status is > 5 or < 0)
+        if (order.Status is not (OrderStatus.Completed or OrderStatus.Delivered or OrderStatus.Paid 
+            or OrderStatus.TransferredForDelivery or OrderStatus.New or OrderStatus.WaitingForPayment))
         {
             throw new StatusNotExistException("Попытка добавить не существующий статус");
         }
